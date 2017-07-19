@@ -1,0 +1,114 @@
+.level-slider-bar {
+	height: 12px;
+	width: 150px;
+	border-radius: 12px;
+	background-color: gray;
+	display: inline-block;
+	cursor: default;
+}
+
+.level-slider-bar.editable {
+	cursor: pointer;
+}
+
+.level-slider-bar-block:first-child {
+	border-top-left-radius: 12px;
+	border-bottom-left-radius: 12px;
+}
+
+.level-slider-bar-block:last-child {
+	border-top-right-radius: 12px;
+	border-bottom-right-radius: 12px;
+}
+
+.level-slider-bar-block {
+	display: block;
+	float: left;
+	height: 12px;
+	width: 10%;
+	border-right: 1px solid white;
+	padding: 0px;
+}
+
+.level-slider-bar-block-primary {
+	background-color: #037ca3;
+}
+
+.level-slider-bar-block-secondary {
+	background-color: #90257c;
+}
+
+.level-slider-bar-stat {
+	display: inline-block;
+	margin-left: 10px;
+	margin-top: -5px;
+	text-align: right;
+}
+
+.level-slider-bar-stat a {
+	font-family: ProximaNova;
+	font-size: 36px;
+	font-weight: 300;
+	line-height: 1.11;
+	text-decoration: none;
+	color: #037ca3;
+	padding: 0 5px;
+	cursor: default;
+}
+
+.level-slider-bar-stat.editable a {
+	cursor: pointer;
+}
+
+.level-slider-bar-stat.editable a:hover {
+	color: white;
+	background-color: #037ca3;
+	cursor: pointer;
+}
+
+.level-dialog-item-container {
+	width: 100%;
+	min-height: 50px;
+	padding: 10px;
+	float: left;
+	border-bottom: solid 1px gray;
+	position: relative;
+	color: black;
+}
+
+.level-dialog-item-container.inactive {
+	color: gray;
+}
+
+.level-dialog-item-container.active {
+	background-color: lightgreen;
+	opacity: 0.5;
+	color: black;
+	font-weight: bold;
+}
+
+.level-dialog-item-container:hover {
+	background-color: greenyellow;
+	opacity: 0.5;
+	color: black;
+}
+
+.level-dialog-item-select {
+	width: 10%;
+	float: left;
+	color: transparent;
+}
+
+.level-dialog-item-select.active {
+	color: green;
+}
+
+.level-dialog-item-level {
+	width: 10%;
+	float: left;
+}
+
+.level-dialog-item-text {
+	width: 80%;
+	float: left;
+}

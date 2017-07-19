@@ -1,0 +1,33 @@
+.outer-container {
+    width: 300px;
+    margin-left: 200px;
+    padding: 10px;
+    border: solid 1px black;
+    float: left;
+}
+
+.item-container {
+    width: 95%;
+    height: 70px;
+    border: solid 1px red;
+    border-radius: 20px;
+    background-color: white;
+    margin: 10px;
+    float: left;
+}
+
+.item-handle {
+    margin-top: 25px;
+    margin-left: 10px;
+    cursor: move;
+}
+
+.item-text-name {
+    margin-top: -30px;
+    margin-left: 80px;
+}
+
+.item-text-descr {
+    margin-top: 0px;
+    margin-left: 80px;
+}

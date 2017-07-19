@@ -1,0 +1,4 @@
+<div class="level-percentage-bar" ng-click="toggleModal()">
+	<div ng-repeat="lvl in levels" class="level-percentage-bar-block {{ pct == 100 ? 'is100pct': '' }}"></div>
+</div>
+<div class="level-percentage-bar-stat">{{ pct + '%' }}</div>

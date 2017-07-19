@@ -1,0 +1,4 @@
+<div class="level-slider-bar" ng-click="toggleModal()">
+	<div ng-repeat="lvl in levels" class="level-slider-bar-block {{ lvl.cssclass }}" ng-style="{ width: levelBlockWidth }"></div>
+</div>
+<div class="level-slider-bar-stat">{{ level }}</div>

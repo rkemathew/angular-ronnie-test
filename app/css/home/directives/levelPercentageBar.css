@@ -1,0 +1,63 @@
+.level-percentage-bar {
+	height: 12px;
+	width: 200px;
+	border-radius: 12px;
+	background-color: lightgray;
+	display: inline-block;
+	cursor: default;
+}
+
+.level-percentage-bar.editable {
+	cursor: pointer;
+}
+
+.level-percentage-bar-block:first-child {
+	border-top-left-radius: 12px;
+	border-bottom-left-radius: 12px;
+}
+
+.level-percentage-bar-block:last-child.is100pct {
+	border-top-right-radius: 12px;
+	border-bottom-right-radius: 12px;
+}
+
+.level-percentage-bar-block {
+	display: block;
+	float: left;
+	height: 12px;
+	width: 10%;
+	border-right: 1px solid white;
+	padding: 0px;
+}
+
+.level-percentage-bar-block {
+	background-color: #90257c;
+}
+
+.level-percentage-bar-stat {
+	display: inline-block;
+	margin-left: 10px;
+	margin-top: -5px;
+	text-align: right;
+}
+
+.level-percentage-bar-stat a {
+	font-family: ProximaNova;
+	font-size: 36px;
+	font-weight: 300;
+	line-height: 1.11;
+	text-decoration: none;
+	color: #037ca3;
+	padding: 0 5px;
+	cursor: default;
+}
+
+.level-percentage-bar-stat.editable a {
+	cursor: pointer;
+}
+
+.level-percentage-bar-stat.editable a:hover {
+	color: white;
+	background-color: #037ca3;
+	cursor: pointer;
+}
