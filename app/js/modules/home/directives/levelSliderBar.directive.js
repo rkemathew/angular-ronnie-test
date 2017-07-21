@@ -24,11 +24,6 @@ angular.module('app').directive('levelSliderBar', function() {
 				scope.maxLevel = maxLevel;
 				scope.levels = levels;
 				scope.levelBlockWidth = 100 / maxLevel + "%";
-
-				console.log('scope.level', scope.level);
-				console.log('scope.maxLevel', scope.maxLevel);
-				console.log('scope.levels', scope.levels);
-				console.log('scope.levelBlockWidth', scope.levelBlockWidth);
 			}
 		}
 	};

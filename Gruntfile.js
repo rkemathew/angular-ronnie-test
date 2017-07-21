@@ -3,7 +3,18 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
  
-        clean: [ "dist" ],
+        clean: {
+            dist: 'dist',
+            postcssmin: 'app/css/app.less.css'
+        },
+
+        less: {
+            dist: {
+                files: {
+                    'app/css/app.less.css': 'app/css/**/*.less'
+                }
+            }
+        },
 
         cssmin: {
             options: {
@@ -88,10 +99,11 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-usemin');
     grunt.loadNpmTasks('grunt-html2js')
  
     grunt.registerTask('default', [
-        'clean', 'uglify', 'cssmin', 'html2js', 'usemin'
+        'clean:dist', 'uglify', 'less', 'cssmin', 'clean:postcssmin', 'html2js', 'usemin'
     ]);
 };

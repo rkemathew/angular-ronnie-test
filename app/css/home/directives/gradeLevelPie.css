@@ -1,0 +1,27 @@
+.grade-level-chart {
+  padding-top: 4px;
+  padding-left: 4px;
+  border: solid 1px gray;
+  box-shadow: 2px 2px black;
+  width: 110px;
+  height: 110px;
+  border-radius: 110px;
+}
+
+.grade-label {
+  font-family: ProximaNova;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  text-align: center;
+  color: #262625;
+}
+
+.grade-stat {
+  font-family: ProximaNova;
+  font-size: 28px;
+  font-weight: 300;
+  line-height: 1.14;
+  letter-spacing: 0.1px;
+  text-align: center;
+  color: #262625;
+}
