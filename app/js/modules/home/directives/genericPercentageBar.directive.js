@@ -10,23 +10,23 @@ angular.module('app').directive('genericPercentageBar', function() {
 			height: '=?'
 		},
 		link: function(scope, element, attributes) {
-			var defaultBgColor = '#f1f1f1';
-			var defaultColor = '#007DA4';
-			var defaultWidth = 200;
-			var defaultHeight = 15;
-			var defaultStatHeight = 20;
+			var DEFAULT_BG_COLOR = '#f1f1f1';
+			var DEFAULT_COLOR = '#007DA4';
+			var DEFAULT_WIDTH = 200;
+			var DEFAULT_HEIGHT = 15;
+			var DEFAULT_STAT_HEIGHT = 20;
 
-			var backgroundColor = scope.bgcolor ? scope.bgcolor : defaultBgColor;
-			var color = scope.color ? scope.color : defaultColor;
-			var width = (scope.width ? scope.width : defaultWidth);
-			var height = (scope.height ? scope.height : defaultHeight);
-			var marginTop = (defaultStatHeight - height) / 2;            // This is to vertical align the pct stat displayed with the bar
-
-			scope.$watch('pct', function() {
+			scope.$watch('[pct, bgcolor, color, width, height]', function() {
 				renderView(+scope.pct);
-			});
+			}, true);
 
 			function renderView(pct) {
+				var backgroundColor = scope.bgcolor ? scope.bgcolor : DEFAULT_BG_COLOR;
+				var color = scope.color ? scope.color : DEFAULT_COLOR;
+				var width = (scope.width ? scope.width : DEFAULT_WIDTH);
+				var height = (scope.height ? scope.height : DEFAULT_HEIGHT);
+				var marginTop = (DEFAULT_STAT_HEIGHT - height) / 2; // This is to vertical align the pct stat displayed with the bar
+
 				scope.pctbarContainerStyle = {
 					'background-color': backgroundColor,
 					'width': width + 'px',

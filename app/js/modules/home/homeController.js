@@ -3,6 +3,11 @@ angular.module('app').controller('HomeCtrl', ['$scope', function($scope) {
     $scope.pct2 = "45";
     $scope.pct3 = "100";
 
+    $scope.pct2bgcolor='green';
+    $scope.pct2color='blue';
+    $scope.pct3width=100;
+    $scope.pct3height=10;
+
     $scope.subCategory = {
         "id": 49,
         "shortProfile": "A1",

@@ -11,20 +11,25 @@
     <level-percentage-bar ng-if="subCategory.levelDescription" sub-category="subCategory"></level-percentage-bar>
 </div>
 
-<input type="textbox" ng-model="pct1"/>
-<input type="textbox" ng-model="pct2"/>
-<input type="textbox" ng-model="pct3"/>
-
 <div style="margin-left: 200px; margin-top: 100px; width: 100%; float: left">
-    <generic-percentage-bar pct="pct1" bgcolor="'blue'" color="'green'"></generic-percentage-bar>
+    Pct Bar 1: <input type="textbox" ng-model="pct1"/><br/>
+    <generic-percentage-bar pct="pct1"></generic-percentage-bar>
 </div>
 
-<div style="margin-left: 200px; margin-top: 5px; width: 100%; float: left">
-    <generic-percentage-bar pct="pct2" width="100" height="10"></generic-percentage-bar>
+<div style="margin-left: 200px; margin-top: 20px; width: 100%; float: left">
+    Pct Bar 2: <input type="textbox" ng-model="pct2"/><br/>
+    Pct Bar 2 Colors:
+    BG Color: <input type="textbox" ng-model="pct2bgcolor"/>
+    Bar Color <input type="textbox" ng-model="pct2color"/>
+    <generic-percentage-bar pct="pct2" bgcolor="pct2bgcolor" color="pct2color"></generic-percentage-bar>
 </div>
 
-<div style="margin-left: 200px; margin-top: 5px; width: 100%; float: left">
-    <generic-percentage-bar pct="pct3"></generic-percentage-bar>
+<div style="margin-left: 200px; margin-top: 20px; width: 100%; float: left">
+    Pct Bar 3: <input type="textbox" ng-model="pct3"/><br/>
+    Pct Bar 3 Dimensions:
+    Width: <input type="textbox" ng-model="pct3width"/>
+    Height <input type="textbox" ng-model="pct3height"/>
+    <generic-percentage-bar pct="pct3" width="pct3width" height="pct3height"></generic-percentage-bar>
 </div>
 
 <div style="margin-left: 200px; margin-top: 100px; width: 100%; float: left">
