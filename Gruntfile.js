@@ -104,6 +104,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-html2js')
  
     grunt.registerTask('default', [
-        'clean:dist', 'uglify', 'less', 'cssmin', 'clean:postcssmin', 'html2js', 'usemin'
+        'clean:dist', 'uglify', 'less', 'cssmin', 'clean:postcssmin', 'html2js'/*, 'usemin' */
     ]);
 };

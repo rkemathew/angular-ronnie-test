@@ -1,4 +1,8 @@
 angular.module('app').controller('HomeCtrl', ['$scope', function($scope) {
+    $scope.pct1 = "40";
+    $scope.pct2 = "45";
+    $scope.pct3 = "100";
+
     $scope.subCategory = {
         "id": 49,
         "shortProfile": "A1",
@@ -52,5 +56,8 @@ angular.module('app').controller('HomeCtrl', ['$scope', function($scope) {
                 }
             ]
         }
+
+        
+
     };
 }]);

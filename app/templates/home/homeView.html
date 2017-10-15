@@ -3,14 +3,30 @@
     This is the Home page 1
 </div>
 
-<div style="margin-left: 200px; margin-top: 100px">
+<div style="margin-left: 200px; margin-top: 100px; width: 100%; float: left">
     <level-slider-bar ng-if="subCategory.levelDescription" sub-category="subCategory"></level-slider-bar>
 </div>
 
-<div style="margin-left: 200px; margin-top: 100px">
+<div style="margin-left: 200px; margin-top: 100px;  width: 100%; float: left">
     <level-percentage-bar ng-if="subCategory.levelDescription" sub-category="subCategory"></level-percentage-bar>
 </div>
 
-<div style="margin-left: 200px; margin-top: 100px">
-    <grade-level-pie size="XL" grade="10"></grade-level-pie>
+<input type="textbox" ng-model="pct1"/>
+<input type="textbox" ng-model="pct2"/>
+<input type="textbox" ng-model="pct3"/>
+
+<div style="margin-left: 200px; margin-top: 100px; width: 100%; float: left">
+    <generic-percentage-bar pct="pct1" bgcolor="'blue'" color="'green'"></generic-percentage-bar>
+</div>
+
+<div style="margin-left: 200px; margin-top: 5px; width: 100%; float: left">
+    <generic-percentage-bar pct="pct2" width="100" height="10"></generic-percentage-bar>
+</div>
+
+<div style="margin-left: 200px; margin-top: 5px; width: 100%; float: left">
+    <generic-percentage-bar pct="pct3"></generic-percentage-bar>
+</div>
+
+<div style="margin-left: 200px; margin-top: 100px; width: 100%; float: left">
+    <grade-level-pie size="M" grade="'20'"></grade-level-pie>
 </div>

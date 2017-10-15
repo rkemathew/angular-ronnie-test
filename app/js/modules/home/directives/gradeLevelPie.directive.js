@@ -4,7 +4,7 @@ angular.module('app').directive('gradeLevelPie', ['$timeout', function($timeout)
 		templateUrl: 'app/templates/home/directives/gradeLevelPie.html',
 		scope: {
 			size: '@?',
-			grade: '@'
+			grade: '='
 		},
 		link: function(scope, element, attributes) {
 			// Seed the dataset with 20 items with a distinct chunk value and 5 for the value attribute
@@ -55,7 +55,7 @@ angular.module('app').directive('gradeLevelPie', ['$timeout', function($timeout)
 				colorsArray[i] = 'lightgray';
 			}
 
-			// Calculation and d3 Magic
+			// Calculations and d3 Magic
 			var radius = Math.min(width, height) / 2;
 			var color = d3.scaleOrdinal().range(colorsArray);
 
@@ -89,17 +89,15 @@ angular.module('app').directive('gradeLevelPie', ['$timeout', function($timeout)
 
 			var labelText = svg.append('text')
 				.attr('class', 'grade-label')
-//				.attr('transform', 'translate(0, -15)')
 				.attr('transform', 'translate(0, ' + -1 * sizes[scope.size].translateYPos + ')')
 				.attr('text-anchor', 'middle')
 				.text('Grade');
 				
 			var gradeText = svg.append('text')
 				.attr('class', 'grade-stat')
-//				.attr('transform', 'translate(0, 15)')
 				.attr('transform', 'translate(0, ' + sizes[scope.size].translateYPos + ')')
 				.attr('text-anchor', 'middle')
-				.text(scope.grade);
+				.text(numGrade);
 
 			$('.grade-level-chart').css('width', sizes[scope.size].outerSize);
 			$('.grade-level-chart').css('height', sizes[scope.size].outerSize);
