@@ -17,6 +17,10 @@
   "dependencies": {
     "angular": "1.2.32",
     "bootstrap": "~3.2.0",
-    "angular-route": "~1.2.20"
+    "angular-route": "~1.2.20",
+    "ng-webworker": "^0.2.3",
+    "requirejs": "^2.3.5",
+    "js-xlsx": "0.8.8",
+    "angular-file-upload": "^2.5.0"
   }
 }

@@ -1,4 +1,19 @@
 <div class="jumbotron text-center">
     <h1>Contact</h1>
     This is the Contact Page
+
+    <div class="upload-file-container">
+        <div class="upload-file-droparea" nv-file-drop="" uploader="uploader">
+            <div class="upload-icon"><span class="glyphicon glyphicon-open"></span></div>
+            <div class="upload-file-text">
+                <input type="file" id="upload" name="upload" style="visibility: hidden;" import-sheet-js=""/>
+
+                <span class="dragdrop-pre-text">Drag and drop a file or</span>
+                <span class="fileupload-dialog-text">
+                    <a href="" onclick="document.getElementById('upload').click(); return false">click here</a>
+                </span>
+                <span class="dragdrop-post-text">to upload one</span>
+            </div>
+        </div>
+    </div>
 </div>

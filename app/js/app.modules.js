@@ -1,11 +1,8 @@
-angular.module('app', ['app.templates', 'ngRoute']);
+angular.module('app', ['app.templates', 'ngRoute', 'ngWebworker', 'angularFileUpload'])
+.config(['WebworkerProvider', function (WebworkerProvider) {
+    WebworkerProvider.setHelperPath("./bower_components/ng-webworker/src/worker_wrapper.min.js");
+}]);
 
 angular.module('app').controller('AppCtrl', ['$scope', function($scope) {
-    var onevar = 'abcd1';
-    if (onevar === 'test') {
-        onevar = 'none1';
-    }
     
-    console.log('here');
-    console.log(onevar);
 }]);
