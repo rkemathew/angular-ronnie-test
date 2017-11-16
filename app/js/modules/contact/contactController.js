@@ -15,10 +15,12 @@ angular.module('app').controller('ContactCtrl', [
         var webworker = Webworker.create(ProcAsWebWorker.asyncTest, { async: true });
         webworker.run(file).then(function(data) {
             processData(data);
-        }, function(error) {
-            processError(error);
-        }, function(notification) {
-            processNotification(notification);
+        }, null, function(message) {
+            if (message.error) {
+                processError(message.error)
+            } else if (message.notification) {
+                processNotification(message.notification);
+            }
         });
     }
 
