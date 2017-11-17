@@ -1,5 +1,6 @@
 angular.module('app').controller('ContactCtrl', [
-    '$scope', 'Webworker', 'FileUploader', 'ProcAsWebWorker', function($scope, Webworker, FileUploader, ProcAsWebWorker) {
+    '$scope', 'Webworker', 'FileUploader', 'BrowserService', 'XlsxWebWorkerProcessorService',
+    function($scope, Webworker, FileUploader, BrowserService, XlsxWebWorkerProcessorService) {
 
     $scope.uploader = new FileUploader({});
     
@@ -12,8 +13,8 @@ angular.module('app').controller('ContactCtrl', [
     });
 
     function processFileAsWebWorker(file) {
-        var webworker = Webworker.create(ProcAsWebWorker.asyncTest, { async: true });
-        webworker.run(file).then(function(data) {
+        var webworker = Webworker.create(XlsxWebWorkerProcessorService.processXlsx, { async: true });
+        webworker.run(file, BrowserService.ie).then(function(data) {
             processData(data);
         }, null, function(message) {
             if (message.error) {

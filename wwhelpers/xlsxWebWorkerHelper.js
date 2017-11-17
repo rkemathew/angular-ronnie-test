@@ -1822,5 +1822,13 @@ var XlsxWebWorkerHelper = {
 
     getCountry: function(code) {
         return this.COUNTRY_ISO_METADATA[code];
+    },
+
+    getCurrency: function(code) {
+        return this.CURRENCY_CODE_METADATA[code];
+    },
+
+    getDBColumnsCount: function() {
+        return this.DB_COLUMNS_METADATA.length;
     }
 };
