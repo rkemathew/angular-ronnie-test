@@ -1830,5 +1830,9 @@ var XlsxWebWorkerHelper = {
 
     getDBColumnsCount: function() {
         return this.DB_COLUMNS_METADATA.length;
+    },
+
+    getDBColumnsMetaData: function() {
+        return this.DB_COLUMNS_METADATA;
     }
 };

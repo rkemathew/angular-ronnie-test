@@ -42,7 +42,8 @@ angular.module('app').service('XlsxWebWorkerProcessorService', function() {
             ZIP_CODE_REGEX = /^[0-9]{5}$/;
         }
 
-        function getWorksheetRange(worksheet) {
+        function getWorksheetRange(processXlsxObj) {
+            var worksheet = processXlsxObj.worksheet;
             var range = XLSX.utils.decode_range(worksheet['!ref']);
     
             // How many rows until we have determined no more data is coming
@@ -76,13 +77,9 @@ angular.module('app').service('XlsxWebWorkerProcessorService', function() {
                 }
     
                 if (isRowEmpty) {
-                    console.log('Row ' + i + ' is empty.');
-                    console.log('firstEmptyRow', firstEmptyRow);
-    
                     if (firstEmptyRow) {
                         if (i - firstEmptyRow >= emptyRows) {
                             range.e.r = firstEmptyRow - 1;
-                            console.log('Last valid row is ' + range.e.r);
                             return range;
                         }
                     } else {
@@ -94,11 +91,15 @@ angular.module('app').service('XlsxWebWorkerProcessorService', function() {
             return range;
         }
 
-        function getHeader() {
+        function getHeader(processXlsxObj) {
+            var worksheet = processXlsxObj.worksheet;
+            var dataRange = processXlsxObj.dataRange;
+            var headerRow = processXlsxObj.headerRow;
+
             var header = {};
-            header.columns = _.cloneDeep(DB_COLUMNS_METADATA);
+            header.columns = _.cloneDeep(XlsxWebWorkerHelper.getDBColumnsMetaData());
             header.unidentifiedXlsxCells = [];
-    
+
             var colRangeBegin = dataRange.s.c;
             var colRangeEnd   = dataRange.e.c;
     
@@ -107,35 +108,32 @@ angular.module('app').service('XlsxWebWorkerProcessorService', function() {
                 if (!cell) {
                     continue;
                 }
-    
+
                 var value = cell ? getCellValue(cell): null;
                 if (value === null) {
                     continue;
                 }
-    
-                var cellRef = $.extend(true, {}, cell);
+
+                var cellRef = _.cloneDeep(cell);
                 cellRef.row = headerRow;
                 cellRef.col = col;
                 cellRef.address = getCellAddr(headerRow, col);
                 cellRef.colAddress = getCellColAddr(headerRow, col);
                 cellRef.value = cell.v;
-    
+
                 var column = getIdentifiedColumn(value, header.columns);
                 if (!column) {
                     header.unidentifiedXlsxCells.push(cellRef);
                     continue;
                 }
-    
+
                 column.isIdentified = true;
                 column.xlsxCell = cellRef;
-                
-                if (!(cellRef.colAddress in headerColumnsIndex)) {
-                    headerColumnsIndex[cellRef.colAddress] = column;
+
+                if (!(cellRef.colAddress in processXlsxObj.headerColumnsIndex)) {
+                    processXlsxObj.headerColumnsIndex[cellRef.colAddress] = column;
                 }
             }
-    
-            console.log('headerColumnsIndex', headerColumnsIndex);
-            console.log('header', header);
     
             return header;
         }
@@ -195,19 +193,22 @@ angular.module('app').service('XlsxWebWorkerProcessorService', function() {
             return records;
         }
     
-        function getIdentifiedHeaderRow() {
+        function getIdentifiedHeaderRow(processXlsxObj) {
+            var worksheet = processXlsxObj.worksheet;
+            var dataRange = processXlsxObj.dataRange;
+
             var rowRangeBegin = dataRange.s.r;
             var rowRangeEnd   = dataRange.e.r < MAX_ROWS_TO_SEARCH_FOR_HEADER ? dataRange.e.r: MAX_ROWS_TO_SEARCH_FOR_HEADER;
             var colRangeBegin = dataRange.s.c;
             var colRangeEnd   = dataRange.e.c;
-    
+
             for (var row = rowRangeBegin; row < rowRangeEnd; row++) {
                 var numColsIdentified = 0;
                 for (var col = colRangeBegin; col < colRangeEnd; col++) {
                     var cell = getCellByRowCol(worksheet, row, col);
                     var value = cell ? getCellValue(cell): null;
                     var type = cell ? getCellType(cell): null;
-                    if (value && type && type === 's' && getIdentifiedColumn(value, DB_COLUMNS_METADATA)) {
+                    if (value && type && type === 's' && getIdentifiedColumn(value, XlsxWebWorkerHelper.getDBColumnsMetaData())) {
                         numColsIdentified++;
                         if (getPctColsIdentified(numColsIdentified) >= PCT_COLS_TO_MATCH_FOR_HEADER) {
                             return row;
@@ -283,8 +284,24 @@ angular.module('app').service('XlsxWebWorkerProcessorService', function() {
         function processXlsx() {
             var def = $q.defer();
 
+            var processXlsxObj = {
+                file: file,
+                workbook: null,
+                generalInfoWorksheet:null,
+                worksheet: null,
+                dataRange: null,
+                headerRow: null,
+                header: null,
+                headerColumnsIndex: {},
+                records: null
+            };
+    
             readXlsx().then(function(workbook) {
+                processXlsxObj.workbook = workbook;
+
                 var generalInfoWorksheet = workbook.Sheets[DEFAULT_GEN_INFO_WORKSHEET_NAME];
+                processXlsxObj.generalInfoWorksheet = generalInfoWorksheet;
+
                 if (!generalInfoWorksheet) {
                     def.reject('Unable to find the worksheet \'' + DEFAULT_GEN_INFO_WORKSHEET_NAME + '\' in the Xlsx File');
                     return false;
@@ -314,25 +331,40 @@ angular.module('app').service('XlsxWebWorkerProcessorService', function() {
                 }
 
                 var worksheet = workbook.Sheets[DEFAULT_WORKSHEET_NAME];
+                processXlsxObj.worksheet = worksheet;
+
                 if (!worksheet) {
                     def.reject('Unable to find the worksheet \'' + DEFAULT_WORKSHEET_NAME + '\' in the Xlsx File');
                     return false;
                 } 
-                
+
                 if (!worksheet['!ref']) {
                     def.reject('Unable to find the header Row or content in the Xlsx File');
                     return false;
                 }
 
-                var dataRange = getWorksheetRange(worksheet);
-                // var headerRow = getIdentifiedHeaderRow();
-                // if (!headerRow) {
-                //     def.reject('Unable to find header Row in Xlsx File');
-                //     return false;
-                // }
-    
+                var dataRange = getWorksheetRange(processXlsxObj);
+                processXlsxObj.dataRange = dataRange;
 
-                def.resolve(workbook);
+                var headerRow = getIdentifiedHeaderRow(processXlsxObj);
+                processXlsxObj.headerRow = headerRow;
+
+                if (!headerRow) {
+                    def.reject('Unable to find header Row in Xlsx File');
+                    return false;
+                }
+
+                var header = getHeader(processXlsxObj);
+                processXlsxObj.header = header;
+
+                console.log('header', header);
+                if (header.unidentifiedXlsxCells.length > 0) {
+                    def.resolve(processXlsxObj);
+                    return false;
+                }
+
+                def.resolve(processXlsxObj);
+                return true;
             }, function(error) {
                 def.reject(error);
             });
