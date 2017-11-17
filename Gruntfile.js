@@ -44,6 +44,12 @@ module.exports = function (grunt) {
                     'app/js/modules/**/*.js',
                 ],
                 dest: 'dist/app.min.js'
+            },
+            wwhelpers: {
+                src: [
+                    'wwhelpers/**/*.js'
+                ],
+                dest: 'dist/wwhelpers.min.js'
             }
         },
 
@@ -86,6 +92,10 @@ module.exports = function (grunt) {
             },
             js: {
                 files: 'app/js/**/*.js',
+                tasks: 'uglify'
+            },
+            wwhelpers: {
+                files: 'wwhelpers/**/*.js',
                 tasks: 'uglify'
             },
             templates: {
