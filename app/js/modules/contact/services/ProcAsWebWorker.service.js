@@ -5,14 +5,14 @@ var MAX_ROWS_TO_SEARCH_FOR_HEADER, PCT_COLS_TO_MATCH_FOR_HEADER, MAX_COL_LEN_TO_
 angular.module('app').service('XlsxWebWorkerProcessorService', function() {
     var service = {};
 
-    service.processXlsx = function(file, isIE) {
+    service.processXlsx = function(file, isIE, locationPath) {
         importScripts("https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.min.js");
         requirejs.config({
             paths: {
-                'wwhelpers': [ 'http://localhost:8080/dist/wwhelpers.min' ],
-                'q': [ 'https://cdnjs.cloudflare.com/ajax/libs/q.js/0.9.2/q.min' ],
-                'lodash': [ 'https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min' ],
-                'js-xlsx': [ 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.8/xlsx.full.min' ]
+                'wwhelpers': [ locationPath + '/dist/wwhelpers.min' ],
+                'q':         [ 'https://cdnjs.cloudflare.com/ajax/libs/q.js/0.9.2/q.min' ],
+                'lodash':    [ 'https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min' ],
+                'js-xlsx':   [ 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.8/xlsx.full.min' ]
             }
         });
 
@@ -357,7 +357,6 @@ angular.module('app').service('XlsxWebWorkerProcessorService', function() {
                 var header = getHeader(processXlsxObj);
                 processXlsxObj.header = header;
 
-                console.log('header', header);
                 if (header.unidentifiedXlsxCells.length > 0) {
                     def.resolve(processXlsxObj);
                     return false;

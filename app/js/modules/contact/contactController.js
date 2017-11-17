@@ -13,8 +13,11 @@ angular.module('app').controller('ContactCtrl', [
     });
 
     function processFileAsWebWorker(file) {
+        var isIE = BrowserService.ie;
+        var locationPath = window.location.protocol + '//' + window.location.host;
+        
         var webworker = Webworker.create(XlsxWebWorkerProcessorService.processXlsx, { async: true });
-        webworker.run(file, BrowserService.ie).then(function(data) {
+        webworker.run(file, isIE, locationPath).then(function(data) {
             processData(data);
         }, null, function(message) {
             if (message.error) {
