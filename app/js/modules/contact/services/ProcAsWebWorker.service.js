@@ -371,7 +371,7 @@ angular.module('app').service('XlsxWebWorkerProcessorService', function() {
             return def.promise;
         }
     
-        requirejs(['wwhelpers', 'q', 'lodash', 'js-xlsx'], function(wwhelpers, q, _, jsXlsx) {
+        requirejs(['wwhelpers', 'q', 'lodash', 'js-xlsx'], function(wwhelpers, q, _, jsXlsx) {-
             init(q, notify, complete);
 
             processXlsx().then(function(workbook) {
